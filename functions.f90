@@ -18,13 +18,13 @@ subroutine functionF(irow, xc, grid, PP, qx, qdx, N, A, alpha, beta, mu, b, &
     end do
         
     do j = 1, N
-        tmp0 = tmp0 + PP(irow, j) *((1-mu)*(grid(j)-b) - kappa*mu*grid(j)  &             ! I add a z_j term here
+        tmp0 = tmp0 + PP(irow, j) *((1-mu)*(grid(j)-b) - kappa*mu*grid(j)  &             !I "correct" the function by adding a z_j term here
                * exp(xc(j)) + (1-delta)*kappa / qx(j))    
     end do
  
     fxi  = beta * qx(irow) * tmp0 - kappa
     fdxi = beta * qdx(irow) * tmp0 - beta * qx(irow) * PP(irow, irow)  &
-         *(kappa*mu*grid(irow)*exp(xc(irow)) - (1-delta)*kappa/qx(irow)**2*qdx(irow))    ! I add a z_i term here
+         *(kappa*mu*grid(irow)*exp(xc(irow)) - (1-delta)*kappa/qx(irow)**2*qdx(irow))    !I "correct" the function by adding a z_j term here
     
     fx(irow) = fxi
     fdx(irow) = fdxi
