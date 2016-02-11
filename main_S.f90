@@ -1,5 +1,5 @@
 program main
-    use mkl95_lapack            !for solving the eigen vector of PP
+    use mkl95_lapack            !for calling geev-line 87 to solve the eigen vector of PP
     implicit none
 	integer(4)	                :: N 
     integer(4)	                :: irow, i, j, k
@@ -84,7 +84,7 @@ program main
     !   simulation
     !   initial step
     PP0 = PP
-    call geev(PP0,eigr,eigi,egvector)
+    call geev(PP0,eigr,eigi,egvector)             !you can't call geev without mkl95_lapack
     PDF = egvector(:,1)/sum(egvector(:,1))
     do i = 1, N
         CDF(i) = sum(PDF(1:i))
